@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Experience from "@/components/Experience";
-import Geographies from "@/components/Geographies";
+import WorldMap from "@/components/WorldMap";
 import Projects from "@/components/Projects";
 import Services from "@/components/Services";
 import Blog from "@/components/Blog";
@@ -12,7 +12,7 @@ export default function Home() {
     <main>
       <Hero />
       <Experience />
-      <Geographies />
+      <WorldMap />
       <Projects />
       <Services />
       <Blog />

@@ -1,107 +1,80 @@
 "use client";
-import { useEffect, useRef } from "react";
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    const particles: { x: number; y: number; vx: number; vy: number; alpha: number }[] = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        alpha: Math.random() * 0.4 + 0.05,
-      });
-    }
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(99,102,241,${p.alpha})`;
-        ctx.fill();
-      });
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
   return (
     <section
       id="about"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f9f8f6]"
     >
-      <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#080808]/40 to-[#080808]" />
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      {/* Soft colour blob */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4 w-[600px] h-[400px] rounded-full bg-indigo-100/60 blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-xs font-medium mb-8 tracking-wide">
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-indigo-200 bg-indigo-50 text-indigo-600 text-xs font-semibold mb-10 tracking-wide uppercase">
+          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
           Open to consulting & advisory
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-5 text-[#0f0f0f] leading-[1.08]">
           Pratyush Jain
         </h1>
 
-        <p className="text-xl md:text-2xl gradient-text font-semibold mb-6">
-          Growth · Strategy · P&L Leadership
+        <p className="text-xl md:text-2xl gradient-text font-semibold mb-7 tracking-tight">
+          Growth · Strategy · P&amp;L Leadership
         </p>
 
-        <p className="text-white/50 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-          I help businesses scale — from zero to one and one to many. With experience
-          spanning multiple continents and industries, I bring a blend of analytical
-          rigour and on-the-ground execution to every challenge.
+        <p className="text-black/50 text-lg max-w-2xl mx-auto mb-12 leading-relaxed">
+          I help businesses scale — from zero to one and one to many. From investment banking
+          and strategy consulting to building global marketplaces and leading food delivery
+          growth across MENA.
         </p>
 
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center mb-16">
           <a
             href="#experience"
-            className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors duration-200"
+            className="px-7 py-3 rounded-full bg-[#111] hover:bg-[#333] text-white text-sm font-semibold transition-colors duration-200 shadow-sm"
           >
             View my work
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 rounded-full border border-white/15 hover:border-white/30 text-white/70 hover:text-white text-sm font-medium transition-all duration-200"
+            className="px-7 py-3 rounded-full border-2 border-black/15 hover:border-black/30 text-black/70 hover:text-black text-sm font-semibold transition-all duration-200"
           >
             Get in touch
           </a>
         </div>
+
+        {/* Quick stats */}
+        <div className="flex flex-wrap justify-center gap-8 text-center">
+          {[
+            { value: "10+", label: "Years experience" },
+            { value: "15+", label: "Countries" },
+            { value: "4", label: "Industries" },
+            { value: "$500M+", label: "P&L managed" },
+          ].map((s) => (
+            <div key={s.label} className="flex flex-col items-center">
+              <span className="text-2xl font-bold text-[#111]">{s.value}</span>
+              <span className="text-xs text-black/35 mt-0.5 uppercase tracking-wide font-medium">{s.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20 text-xs">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-black/25 text-xs font-medium">
         <span>scroll</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
+        <div className="w-px h-8 bg-gradient-to-b from-black/20 to-transparent" />
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import Link from "next/link";
 const links = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
+  { href: "#map", label: "World Map" },
   { href: "#projects", label: "Projects" },
   { href: "#services", label: "Services" },
   { href: "#blog", label: "Writing" },
@@ -25,54 +26,53 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#080808]/90 backdrop-blur-md border-b border-white/5"
+          ? "bg-[#f9f8f6]/92 backdrop-blur-md border-b border-black/[0.06] shadow-sm"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
+        <Link href="/" className="text-lg font-bold tracking-tight">
           <span className="gradient-text">PJ</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Desktop */}
+        <nav className="hidden md:flex items-center gap-7">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-white/50 hover:text-white transition-colors duration-200"
+              className="text-sm text-black/45 hover:text-black transition-colors duration-200 font-medium"
             >
               {l.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="text-sm px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white transition-colors duration-200"
+            className="text-sm px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white transition-colors duration-200 font-medium shadow-sm"
           >
-            Let's talk
+            Let&apos;s talk
           </a>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Mobile */}
         <button
-          className="md:hidden text-white/60 hover:text-white"
+          className="md:hidden text-black/50 hover:text-black"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          <span className="block w-5 h-0.5 bg-current mb-1" />
-          <span className="block w-5 h-0.5 bg-current mb-1" />
+          <span className="block w-5 h-0.5 bg-current mb-1.5" />
+          <span className="block w-5 h-0.5 bg-current mb-1.5" />
           <span className="block w-3 h-0.5 bg-current" />
         </button>
       </div>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-[#0e0e0e] border-t border-white/5 px-6 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-[#f9f8f6] border-t border-black/[0.06] px-6 py-4 flex flex-col gap-4">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-white/60 hover:text-white"
+              className="text-sm text-black/60 hover:text-black font-medium"
               onClick={() => setOpen(false)}
             >
               {l.label}
