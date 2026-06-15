@@ -90,15 +90,18 @@ export default function Expertise() {
             {domains.map((d) => (
               <div
                 key={d.name}
-                className="group flex gap-5 bg-white border border-black/[0.07] rounded-2xl p-6 hover:border-indigo-200 hover:shadow-md transition-all duration-300 shadow-sm"
+                className="group bg-white border border-black/[0.07] rounded-2xl p-6 hover:border-indigo-200 hover:shadow-md transition-all duration-300 shadow-sm flex flex-col"
               >
-                <div className={`${d.bg} w-11 h-11 rounded-xl flex items-center justify-center text-white text-lg font-bold shrink-0`}>
-                  {d.icon}
+                {/* Icon row */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`${d.bg} w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm shrink-0`}>
+                    {d.icon}
+                  </div>
+                  <div className="w-px h-5 bg-black/[0.07]" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-[#111] text-base mb-1.5">{d.name}</h3>
-                  <p className="text-black/45 text-sm leading-relaxed">{d.desc}</p>
-                </div>
+                {/* Text */}
+                <h3 className="font-bold text-[#111] text-sm leading-snug mb-2">{d.name}</h3>
+                <p className="text-black/40 text-xs leading-relaxed">{d.desc}</p>
               </div>
             ))}
           </div>

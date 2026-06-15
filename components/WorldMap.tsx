@@ -246,19 +246,26 @@ export default function WorldMap() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
-        {[
-          { value: "4", label: "Home bases", sub: "Mumbai · Gurugram · Berlin · Dubai" },
-          { value: "15+", label: "Countries", sub: "Across 4 continents" },
-          { value: "3", label: "Engagement modes", sub: "Operator · Consultant · Banker" },
-          { value: "4+", label: "Verticals", sub: "Food · Retail · Automotive · Finance" },
-        ].map((s) => (
-          <div key={s.label} className="bg-white rounded-xl border border-black/[0.07] p-4 shadow-sm">
-            <p className="text-xl font-bold text-[#111]">{s.value}</p>
-            <p className="text-xs font-bold text-black/55 mt-0.5">{s.label}</p>
-            <p className="text-xs text-black/30 mt-0.5">{s.sub}</p>
-          </div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+        {/* Home bases — Dubai first, highlighted */}
+        <div className="bg-white rounded-xl border border-black/[0.07] p-4 shadow-sm">
+          <p className="text-xl font-bold text-[#111]">4</p>
+          <p className="text-xs font-bold text-black/55 mt-0.5">Home bases</p>
+          <p className="text-xs mt-1 leading-relaxed">
+            <span className="text-emerald-600 font-semibold">Dubai</span>
+            <span className="text-black/30"> · Berlin · Gurugram · Mumbai</span>
+          </p>
+        </div>
+        <div className="bg-white rounded-xl border border-black/[0.07] p-4 shadow-sm">
+          <p className="text-xl font-bold text-[#111]">15+</p>
+          <p className="text-xs font-bold text-black/55 mt-0.5">Countries</p>
+          <p className="text-xs text-black/30 mt-0.5">Across 4 continents</p>
+        </div>
+        <div className="bg-white rounded-xl border border-black/[0.07] p-4 shadow-sm">
+          <p className="text-xl font-bold text-[#111]">3</p>
+          <p className="text-xs font-bold text-black/55 mt-0.5">Engagement modes</p>
+          <p className="text-xs text-black/30 mt-0.5">Operator · Consultant · Banker</p>
+        </div>
       </div>
     </div>
   );

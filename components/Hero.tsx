@@ -60,7 +60,6 @@ export default function Hero() {
           {[
             { value: "10+", label: "Years experience" },
             { value: "15+", label: "Countries" },
-            { value: "4", label: "Industries" },
             { value: "$500M+", label: "P&L managed" },
           ].map((s) => (
             <div key={s.label} className="flex flex-col items-center">
@@ -68,6 +67,16 @@ export default function Hero() {
               <span className="text-xs text-black/35 mt-0.5 uppercase tracking-wide font-medium">{s.label}</span>
             </div>
           ))}
+          <div className="flex flex-col items-center">
+            <div className="flex flex-wrap gap-1 justify-center mb-1">
+              {["Consumer Tech", "Hyperlocal", "Quick Commerce"].map((v) => (
+                <span key={v} className="text-[10px] px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-500 font-semibold">
+                  {v}
+                </span>
+              ))}
+            </div>
+            <span className="text-xs text-black/35 uppercase tracking-wide font-medium">Verticals</span>
+          </div>
         </div>
       </div>
 
