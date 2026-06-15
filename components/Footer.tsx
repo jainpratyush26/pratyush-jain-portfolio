@@ -1,9 +1,46 @@
-const associations = [
-  { name: "IIM Ahmedabad", short: "IIMA" },
-  { name: "Morgan Stanley", short: "Morgan Stanley" },
-  { name: "Kearney", short: "Kearney" },
-  { name: "Delivery Hero", short: "Delivery Hero" },
-  { name: "noon Food", short: "noon" },
+// Inline SVG wordmarks — always load, no external dependency, crisp at any scale
+const logos = [
+  {
+    name: "IIM Ahmedabad",
+    svg: (
+      <svg viewBox="0 0 80 36" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 28, width: "auto" }}>
+        <text x="0" y="14" fontFamily="Georgia, serif" fontSize="11" fontWeight="700" fill="currentColor" letterSpacing="0.5">IIM</text>
+        <text x="0" y="26" fontFamily="Georgia, serif" fontSize="9" fontWeight="400" fill="currentColor" letterSpacing="0.3">Ahmedabad</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Morgan Stanley",
+    svg: (
+      <svg viewBox="0 0 130 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 18, width: "auto" }}>
+        <text x="0" y="15" fontFamily="-apple-system, sans-serif" fontSize="13" fontWeight="600" fill="currentColor" letterSpacing="0.2">Morgan Stanley</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Kearney",
+    svg: (
+      <svg viewBox="0 0 90 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 18, width: "auto" }}>
+        <text x="0" y="15" fontFamily="-apple-system, sans-serif" fontSize="14" fontWeight="700" fill="currentColor" letterSpacing="-0.3">Kearney</text>
+      </svg>
+    ),
+  },
+  {
+    name: "Delivery Hero",
+    svg: (
+      <svg viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 18, width: "auto" }}>
+        <text x="0" y="15" fontFamily="-apple-system, sans-serif" fontSize="13" fontWeight="600" fill="currentColor" letterSpacing="0.1">Delivery Hero</text>
+      </svg>
+    ),
+  },
+  {
+    name: "noon",
+    svg: (
+      <svg viewBox="0 0 52 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 22, width: "auto" }}>
+        <text x="0" y="18" fontFamily="Georgia, serif" fontSize="18" fontWeight="700" fill="currentColor" letterSpacing="-0.5">noon</text>
+      </svg>
+    ),
+  },
 ];
 
 export default function Footer() {
@@ -12,18 +49,15 @@ export default function Footer() {
 
       {/* Logo strip */}
       <div className="max-w-4xl mx-auto px-6 py-10 border-b border-black/[0.05]">
-        <p className="text-center text-[10px] font-bold text-black/18 uppercase tracking-[0.18em] mb-8">
-          Associated with
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-5">
-          {associations.map((a) => (
-            <span
-              key={a.name}
-              title={a.name}
-              className="text-sm font-semibold text-black/20 tracking-tight select-none whitespace-nowrap"
+        <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+          {logos.map((logo) => (
+            <div
+              key={logo.name}
+              title={logo.name}
+              className="text-black/20 select-none"
             >
-              {a.short}
-            </span>
+              {logo.svg}
+            </div>
           ))}
         </div>
       </div>
