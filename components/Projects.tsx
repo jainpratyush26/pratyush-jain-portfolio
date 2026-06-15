@@ -1,105 +1,65 @@
 const projects = [
   {
-    title: "noon Food — UAE Growth & P&L",
-    description:
-      "Leading growth strategy and P&L ownership for UAE's food delivery platform — driving customer acquisition, retention and contribution margin initiatives.",
-    tags: ["Food Delivery", "P&L", "MENA", "Growth"],
-    outcome: "Current role",
-    type: "Current",
+    label: "Talabat / Delivery Hero · 2021–2023",
+    title: "TExpress — Rider on Demand Platform",
+    summary:
+      "Built and scaled Talabat's rider-on-demand business from the ground up — a platform that decoupled riders from the food delivery network and opened them up as an on-demand asset for any use case.",
+    highlights: [
+      "Architected the 0→1 operating model: fleet management, pricing, SLA design and partner onboarding.",
+      "Scaled across food, pharmacy, grocery and general merchandise use cases across UAE, Kuwait, Bahrain and Egypt.",
+      "Explored and piloted a dark store as a service model — enabling third-party retailers to plug into Talabat's logistics infrastructure.",
+    ],
+    tags: ["0→1", "Quick Commerce", "MENA", "Logistics"],
+    tagColor: "bg-violet-50 text-violet-700 border-violet-200",
   },
   {
-    title: "Talabat Express — Dark Store as a Service",
-    description:
-      "Built the dark store model for Talabat from scratch — site selection, operational model design, partner onboarding and scaling across UAE, Kuwait, Bahrain and Egypt.",
-    tags: ["Quick Commerce", "0→1", "MENA", "Operations"],
-    outcome: "0→1 across 4 markets",
-    type: "Operator",
-  },
-  {
-    title: "Shops Marketplace — MENA Scale",
-    description:
-      "Scaled grocery, health and beauty on Talabat Shops to become a significant revenue contributor — category strategy, supplier partnerships and demand generation.",
-    tags: ["Marketplace", "1→10", "Grocery", "Beauty"],
-    outcome: "1→10 growth",
-    type: "Operator",
-  },
-  {
-    title: "Global Logistics as a Service",
-    description:
-      "Built logistics as a service from 0→1 across Argentina, Nordics, Spain, Italy and APAC — operational playbooks, tech integrations and commercial frameworks.",
-    tags: ["Logistics", "0→1", "Global", "Delivery Hero"],
-    outcome: "5 markets launched",
-    type: "Operator",
-  },
-  {
-    title: "PE Due Diligence — Indian Retail",
-    description:
-      "Led commercial due diligence for two major private equity investments in the Indian organised retail sector — market sizing, competitive dynamics and management assessment.",
-    tags: ["PE", "Consulting", "India", "Retail"],
-    outcome: "2 mandates delivered",
-    type: "Consulting",
-  },
-  {
-    title: "Cost Transformation — Telecom & Auto",
-    description:
-      "End-to-end cost optimisation for a major Malaysian telecom player and production cost reduction for a South Korean automotive OEM — structural savings identification and implementation roadmaps.",
-    tags: ["Cost Optimisation", "Consulting", "Malaysia", "South Korea"],
-    outcome: "Multi-market delivery",
-    type: "Consulting",
+    label: "Talabat / Delivery Hero · 2021–2023",
+    title: "Talabat Shops — Grocery, Health & Beauty",
+    summary:
+      "Scaled the Talabat Shops marketplace to bring everyday essentials — think Spinneys, Carrefour, Aster and Guardian — to customers' doors in under 45 minutes.",
+    highlights: [
+      "Led category strategy and supplier partnerships across grocery, health and beauty verticals.",
+      "Drove demand-side growth through marketing, promotions and CRM — growing basket size and repeat rates.",
+      "Expanded the model from UAE across Kuwait, Bahrain and Egypt, adapting the playbook to each market.",
+    ],
+    tags: ["1→10", "Marketplace", "Grocery", "MENA"],
+    tagColor: "bg-sky-50 text-sky-700 border-sky-200",
   },
 ];
 
-const typeStyle: Record<string, string> = {
-  Current: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  Operator: "bg-indigo-50 text-indigo-700 border-indigo-200",
-  Consulting: "bg-amber-50 text-amber-700 border-amber-200",
-};
-
 export default function Projects() {
   return (
-    <section id="projects" className="py-28 px-6 bg-[#f9f8f6]">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-16">
-          <p className="text-indigo-600 text-xs font-bold tracking-widest uppercase mb-3">
-            Work
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#111]">
-            Selected Projects
-          </h2>
-          <p className="text-black/40 mt-4 max-w-xl">
-            A selection of strategic and operational initiatives I&apos;ve led or been central to.
-          </p>
+    <section id="projects" className="py-20 px-6 bg-[#f2f0eb]">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-12">
+          <p className="text-indigo-600 text-xs font-bold tracking-widest uppercase mb-3">Highlights</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#111]">Featured Work</h2>
+          <p className="text-black/40 mt-4 text-base">Two builds I&apos;m especially proud of.</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="space-y-6">
           {projects.map((p, i) => (
             <div
               key={i}
-              className="bg-white border border-black/[0.07] rounded-2xl p-6 flex flex-col hover:border-indigo-200 hover:shadow-md transition-all duration-300 shadow-sm group"
+              className="bg-white border border-black/[0.07] rounded-2xl p-7 shadow-sm hover:shadow-md hover:border-indigo-200 transition-all duration-300"
             >
-              <div className="flex items-start justify-between gap-2 mb-3">
-                <h3 className="font-bold text-[#111] text-base leading-snug group-hover:text-indigo-700 transition-colors">
-                  {p.title}
-                </h3>
-                <span className={`text-xs px-2 py-0.5 rounded-full border font-semibold shrink-0 ${typeStyle[p.type]}`}>
-                  {p.type}
-                </span>
-              </div>
-              <p className="text-black/50 text-sm leading-relaxed mb-5 flex-1">{p.description}</p>
-              <div className="mt-auto">
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {p.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs px-2 py-0.5 rounded-full bg-black/[0.04] text-black/45 border border-black/[0.06]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="pt-4 border-t border-black/[0.06]">
-                  <span className="text-indigo-600 text-sm font-bold">{p.outcome}</span>
-                </div>
+              <p className="text-black/30 text-xs font-semibold uppercase tracking-wide mb-2">{p.label}</p>
+              <h3 className="text-xl font-bold text-[#111] mb-3">{p.title}</h3>
+              <p className="text-black/55 text-sm leading-relaxed mb-5">{p.summary}</p>
+              <ul className="space-y-2 mb-5">
+                {p.highlights.map((h, j) => (
+                  <li key={j} className="flex gap-2.5 text-sm text-black/50 leading-relaxed">
+                    <span className="text-indigo-400 mt-0.5 shrink-0">›</span>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-black/[0.05]">
+                {p.tags.map((t) => (
+                  <span key={t} className={`text-xs px-2.5 py-0.5 rounded-full border font-semibold ${p.tagColor}`}>
+                    {t}
+                  </span>
+                ))}
               </div>
             </div>
           ))}

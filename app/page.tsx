@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import Experience from "@/components/Experience";
 import WorldMap from "@/components/WorldMap";
+import Expertise from "@/components/Expertise";
 import Projects from "@/components/Projects";
 import Services from "@/components/Services";
 import Blog from "@/components/Blog";
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <Experience />
       <WorldMap />
+      <Expertise />
       <Projects />
       <Services />
       <Blog />

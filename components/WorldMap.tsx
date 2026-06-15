@@ -8,28 +8,47 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const GEO_URL = "/countries-110m.json";
 
 type ExperienceTag = "0→1" | "1→10" | "Consulting" | "Base" | "Current Base";
-
-interface CountryEntry {
-  id: string; // ISO numeric
-  name: string;
-  highlight: boolean;
-}
 
 interface LocationPin {
   name: string;
   coords: [number, number];
-  type: "base" | "project";
+  type: "base" | "current" | "operator" | "consulting";
   company: string;
   period: string;
   tags: ExperienceTag[];
   description: string;
 }
 
+// geo.id is a STRING in world-atlas 110m TopoJSON — use string keys with leading zeros as stored.
+// Note: Singapore (702) and Bahrain (048) are too small for 110m resolution — omitted.
+// Colours: vivid saturated fills so countries pop on the beige base.
+const COUNTRY_COLORS: Record<string, string> = {
+  // Current base — UAE — vivid emerald
+  "784": "#059669",
+  // Home bases — vivid indigo/violet
+  "356": "#4338ca",   // India
+  "276": "#4338ca",   // Germany
+  // Operator / builder markets — vivid sky blue
+  "032": "#0284c7",   // Argentina (stored with leading zero)
+  "578": "#0284c7",   // Norway
+  "752": "#0284c7",   // Sweden
+  "208": "#0284c7",   // Denmark
+  "724": "#0284c7",   // Spain
+  "380": "#0284c7",   // Italy
+  "764": "#0284c7",   // Thailand
+  "414": "#0284c7",   // Kuwait
+  "818": "#0284c7",   // Egypt
+  // Consulting markets — vivid amber/orange
+  "458": "#d97706",   // Malaysia
+  "410": "#d97706",   // South Korea
+  "682": "#d97706",   // Saudi Arabia
+};
+
 const pins: LocationPin[] = [
-  // ── BASES ──
+  // ── HOME BASES ──
   {
     name: "Mumbai",
     coords: [72.88, 19.08],
@@ -60,54 +79,53 @@ const pins: LocationPin[] = [
   {
     name: "Dubai",
     coords: [55.27, 25.2],
-    type: "base",
+    type: "current",
     company: "noon Food",
     period: "2023 – Present",
     tags: ["Current Base"],
     description: "Heading growth and P&L for UAE food delivery — driving customer acquisition, retention and margin across the platform.",
   },
-
   // ── PROJECT MARKETS ──
   {
     name: "Malaysia",
     coords: [101.69, 3.14],
-    type: "project",
+    type: "consulting",
     company: "Major Telecom Player",
     period: "2017",
     tags: ["Consulting"],
-    description: "Cost optimisation engagement — identified $XX0M in structural savings across network, procurement and operations.",
+    description: "Cost optimisation engagement — structural savings across network, procurement and operations.",
   },
   {
     name: "South Korea",
     coords: [126.98, 37.57],
-    type: "project",
+    type: "consulting",
     company: "Automotive OEM",
     period: "2017",
     tags: ["Consulting"],
-    description: "Production cost reduction strategy for a major automotive player — lean manufacturing and supplier rationalisation.",
+    description: "Production cost reduction strategy — lean manufacturing and supplier rationalisation for a major automotive player.",
   },
   {
     name: "Saudi Arabia",
     coords: [45.08, 23.89],
-    type: "project",
+    type: "consulting",
     company: "Retail Conglomerate",
     period: "2018",
     tags: ["Consulting"],
-    description: "Supply chain and warehousing optimisation across a major Saudi retail group — network design and inventory strategy.",
+    description: "Supply chain and warehousing optimisation — network design and inventory strategy across a major Saudi retail group.",
   },
   {
     name: "Argentina",
     coords: [-63.62, -38.42],
-    type: "project",
+    type: "operator",
     company: "Delivery Hero / PedidosYa",
     period: "2020 – 2021",
     tags: ["0→1", "1→10"],
-    description: "Built logistics as a service from scratch (0→1) and scaled a shops marketplace (grocery, pharmacy, beauty) to market leadership.",
+    description: "Built logistics as a service from scratch and scaled a shops marketplace (grocery, pharmacy, beauty) to market leadership.",
   },
   {
     name: "Nordics",
     coords: [15.5, 63.0],
-    type: "project",
+    type: "operator",
     company: "Delivery Hero",
     period: "2021",
     tags: ["0→1"],
@@ -116,8 +134,8 @@ const pins: LocationPin[] = [
   {
     name: "Spain",
     coords: [-3.75, 40.42],
-    type: "project",
-    company: "Delivery Hero / Glovo",
+    type: "operator",
+    company: "Delivery Hero",
     period: "2021 – 2022",
     tags: ["1→10"],
     description: "Scaled shops marketplace (grocery, pharmacy, beauty) from initial launch to significant market scale.",
@@ -125,16 +143,16 @@ const pins: LocationPin[] = [
   {
     name: "Italy",
     coords: [12.49, 41.9],
-    type: "project",
+    type: "operator",
     company: "Delivery Hero",
     period: "2021 – 2022",
     tags: ["0→1", "1→10"],
     description: "Built logistics as a service from the ground up and scaled a shops marketplace across major Italian cities.",
   },
   {
-    name: "Singapore / APAC",
+    name: "APAC — SG / HK / TW / TH",
     coords: [103.82, 1.36],
-    type: "project",
+    type: "operator",
     company: "Delivery Hero / foodpanda",
     period: "2022 – 2023",
     tags: ["1→10"],
@@ -142,17 +160,17 @@ const pins: LocationPin[] = [
   },
   {
     name: "MENA — UAE, Kuwait, Bahrain, Egypt",
-    coords: [47.5, 25.5],
-    type: "project",
+    coords: [47.5, 26.5],
+    type: "operator",
     company: "Talabat",
     period: "2021 – 2023",
     tags: ["0→1", "1→10"],
-    description: "Built Talabat Express (dark store as a service), scaled grocery, health and beauty for Talabat Shops across MENA.",
+    description: "Built Talabat Express (dark store as a service + rider on demand), scaled grocery, health and beauty for Talabat Shops across MENA.",
   },
   {
     name: "India — Consulting",
-    coords: [80.0, 21.0],
-    type: "project",
+    coords: [80.0, 21.5],
+    type: "consulting",
     company: "Kearney",
     period: "2016 – 2019",
     tags: ["Consulting"],
@@ -162,15 +180,17 @@ const pins: LocationPin[] = [
 
 const tagStyle: Record<ExperienceTag, string> = {
   "Current Base": "bg-emerald-100 text-emerald-700 border-emerald-200",
-  "Base": "bg-indigo-100 text-indigo-700 border-indigo-200",
-  "0→1": "bg-violet-100 text-violet-700 border-violet-200",
-  "1→10": "bg-sky-100 text-sky-700 border-sky-200",
-  "Consulting": "bg-amber-100 text-amber-700 border-amber-200",
+  "Base":         "bg-indigo-100 text-indigo-700 border-indigo-200",
+  "0→1":          "bg-violet-100 text-violet-700 border-violet-200",
+  "1→10":         "bg-sky-100 text-sky-700 border-sky-200",
+  "Consulting":   "bg-amber-100 text-amber-700 border-amber-200",
 };
 
-const pinColor: Record<LocationPin["type"], { fill: string; ring: string; size: number }> = {
-  base: { fill: "#4f46e5", ring: "#c7d2fe", size: 7 },
-  project: { fill: "#0ea5e9", ring: "#bae6fd", size: 5 },
+const pinDot: Record<LocationPin["type"], { fill: string; ring: string; r: number }> = {
+  current:   { fill: "#10b981", ring: "#a7f3d0", r: 7 },
+  base:      { fill: "#6366f1", ring: "#c7d2fe", r: 6 },
+  operator:  { fill: "#0ea5e9", ring: "#bae6fd", r: 5 },
+  consulting:{ fill: "#f59e0b", ring: "#fde68a", r: 5 },
 };
 
 export default function WorldMap() {
@@ -179,47 +199,44 @@ export default function WorldMap() {
   const mapRef = useRef<HTMLDivElement>(null);
 
   const handlePin = (pin: LocationPin, e: React.MouseEvent) => {
+    e.stopPropagation();
     const rect = mapRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setTooltipPos({ x, y });
+    setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     setActive(pin);
   };
 
   return (
     <section id="map" className="py-28 px-6 bg-[#f2f0eb]">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <p className="text-indigo-600 text-xs font-bold tracking-widest uppercase mb-3">
-            Global Footprint
-          </p>
+        {/* Header */}
+        <div className="mb-10">
+          <p className="text-indigo-600 text-xs font-bold tracking-widest uppercase mb-3">Global Footprint</p>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-[#111] mb-4">
-            Where I&apos;ve Built & Consulted
+            Where I&apos;ve Built &amp; Consulted
           </h2>
           <p className="text-black/45 max-w-xl leading-relaxed">
-            From investment banking in Mumbai to scaling food delivery across MENA — hover over
-            any pin to see the story behind it.
+            From investment banking in Mumbai to scaling food delivery across MENA — click any
+            pin to see the story behind it.
           </p>
         </div>
 
         {/* Legend */}
-        <div className="flex flex-wrap gap-4 mb-8">
+        <div className="flex flex-wrap gap-3 mb-6">
           {[
-            { color: "#4f46e5", label: "Home base" },
-            { color: "#0ea5e9", label: "Project / market" },
+            { color: "#10b981", label: "Current base" },
+            { color: "#6366f1", label: "Home base" },
+            { color: "#0ea5e9", label: "Operator / builder" },
+            { color: "#f59e0b", label: "Consulting" },
           ].map((l) => (
-            <div key={l.label} className="flex items-center gap-2 text-sm text-black/50 font-medium">
-              <span
-                className="w-3 h-3 rounded-full"
-                style={{ background: l.color }}
-              />
+            <div key={l.label} className="flex items-center gap-2 text-xs text-black/55 font-semibold bg-white border border-black/[0.07] rounded-full px-3 py-1.5 shadow-sm">
+              <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: l.color }} />
               {l.label}
             </div>
           ))}
-          <div className="ml-4 flex flex-wrap gap-2">
-            {(Object.keys(tagStyle) as ExperienceTag[]).map((t) => (
-              <span key={t} className={`text-xs px-2.5 py-0.5 rounded-full border font-semibold ${tagStyle[t]}`}>
+          <div className="ml-2 flex flex-wrap gap-2">
+            {(["0→1", "1→10", "Consulting"] as ExperienceTag[]).map((t) => (
+              <span key={t} className={`text-xs px-2.5 py-1 rounded-full border font-bold ${tagStyle[t]}`}>
                 {t}
               </span>
             ))}
@@ -229,56 +246,59 @@ export default function WorldMap() {
         {/* Map */}
         <div
           ref={mapRef}
-          className="relative rounded-2xl overflow-hidden border border-black/[0.07] shadow-md bg-[#e8e4dd] cursor-grab active:cursor-grabbing"
-          style={{ height: 480 }}
+          className="relative rounded-2xl overflow-hidden border border-black/[0.07] shadow-lg bg-[#ddd8d0] cursor-grab active:cursor-grabbing"
+          style={{ height: 500 }}
           onClick={() => setActive(null)}
         >
           <ComposableMap
-            projectionConfig={{ scale: 140, center: [20, 20] }}
+            projectionConfig={{ scale: 148, center: [20, 15] }}
             style={{ width: "100%", height: "100%" }}
           >
-            <ZoomableGroup zoom={1} minZoom={0.8} maxZoom={6}>
+            <ZoomableGroup zoom={1} minZoom={0.8} maxZoom={8}>
               <Geographies geography={GEO_URL}>
                 {({ geographies }) =>
-                  geographies.map((geo) => (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill="#d4cfc6"
-                      stroke="#c5bfb5"
-                      strokeWidth={0.4}
-                      style={{
-                        default: { outline: "none" },
-                        hover: { fill: "#c8c2b8", outline: "none" },
-                        pressed: { outline: "none" },
-                      }}
-                    />
-                  ))
+                  geographies.map((geo) => {
+                    // geo.id is a string in world-atlas 110m (e.g. "356" for India, "032" for Argentina)
+                    const customColor = COUNTRY_COLORS[String(geo.id)];
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={customColor ?? "#cdc7be"}
+                        stroke={customColor ? "rgba(255,255,255,0.5)" : "#bdb8af"}
+                        strokeWidth={customColor ? 0.8 : 0.4}
+                        style={{
+                          default: { outline: "none" },
+                          hover:   { fill: customColor ?? "#bfb9b0", outline: "none", opacity: 0.85 },
+                          pressed: { outline: "none" },
+                        }}
+                      />
+                    );
+                  })
                 }
               </Geographies>
 
               {pins.map((pin) => {
-                const s = pinColor[pin.type];
+                const s = pinDot[pin.type];
+                const isActive = active?.name === pin.name;
                 return (
                   <Marker
                     key={pin.name}
                     coordinates={pin.coords}
-                    onClick={(e) => { e.stopPropagation(); handlePin(pin, e as unknown as React.MouseEvent); }}
+                    onClick={(e) => handlePin(pin, e as unknown as React.MouseEvent)}
                   >
-                    {/* Pulse ring */}
+                    {/* Outer pulse */}
+                    <circle r={s.r + 6} fill={s.ring} opacity={isActive ? 0.7 : 0.35} className="transition-opacity duration-200" />
+                    {/* Middle ring */}
+                    <circle r={s.r + 2} fill="white" opacity={0.6} />
+                    {/* Core */}
                     <circle
-                      r={s.size + 4}
-                      fill={s.ring}
-                      opacity={active?.name === pin.name ? 0.6 : 0.3}
-                      className="transition-opacity duration-200"
-                    />
-                    {/* Core dot */}
-                    <circle
-                      r={s.size}
+                      r={s.r}
                       fill={s.fill}
                       stroke="white"
                       strokeWidth={1.5}
-                      className="cursor-pointer hover:opacity-80 transition-opacity"
+                      className="cursor-pointer transition-transform duration-150"
+                      style={{ transform: isActive ? "scale(1.3)" : "scale(1)" }}
                     />
                   </Marker>
                 );
@@ -289,28 +309,26 @@ export default function WorldMap() {
           {/* Tooltip */}
           {active && (
             <div
-              className="absolute z-20 pointer-events-none"
+              className="absolute z-20"
               style={{
-                left: tooltipPos.x + 14,
-                top: tooltipPos.y - 10,
-                maxWidth: 300,
-                transform:
-                  tooltipPos.x > 500 ? "translateX(calc(-100% - 28px))" : undefined,
+                left: tooltipPos.x + 16,
+                top:  Math.max(8, tooltipPos.y - 20),
+                maxWidth: 290,
+                transform: tooltipPos.x > 480 ? "translateX(calc(-100% - 32px))" : undefined,
+                pointerEvents: "none",
               }}
             >
-              <div className="bg-white rounded-2xl shadow-xl border border-black/[0.08] p-4 pointer-events-auto">
-                <div className="flex items-start justify-between gap-3 mb-2">
-                  <div>
-                    <h4 className="font-bold text-[#111] text-sm leading-tight">{active.name}</h4>
-                    <p className="text-indigo-600 text-xs font-semibold mt-0.5">{active.company}</p>
-                  </div>
-                  <span className="text-black/30 text-xs whitespace-nowrap mt-0.5">{active.period}</span>
-                </div>
+              <div className="bg-white rounded-2xl shadow-2xl border border-black/[0.08] p-4 pointer-events-auto" style={{ pointerEvents: "auto" }}>
+                <button
+                  onClick={() => setActive(null)}
+                  className="absolute top-3 right-3 text-black/25 hover:text-black/50 text-lg leading-none"
+                >×</button>
+                <h4 className="font-bold text-[#111] text-sm leading-tight pr-5">{active.name}</h4>
+                <p className="text-indigo-600 text-xs font-semibold mt-0.5 mb-1">{active.company}</p>
+                <p className="text-black/35 text-xs mb-3">{active.period}</p>
                 <div className="flex flex-wrap gap-1.5 mb-3">
                   {active.tags.map((t) => (
-                    <span key={t} className={`text-xs px-2 py-0.5 rounded-full border font-semibold ${tagStyle[t]}`}>
-                      {t}
-                    </span>
+                    <span key={t} className={`text-xs px-2 py-0.5 rounded-full border font-bold ${tagStyle[t]}`}>{t}</span>
                   ))}
                 </div>
                 <p className="text-black/55 text-xs leading-relaxed">{active.description}</p>
@@ -320,26 +338,23 @@ export default function WorldMap() {
 
           {/* Hint */}
           {!active && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-sm text-black/40 text-xs px-3 py-1.5 rounded-full border border-black/[0.07] font-medium pointer-events-none">
-              Click a pin · scroll to zoom
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-sm text-black/40 text-xs px-3 py-1.5 rounded-full border border-black/[0.07] font-medium pointer-events-none whitespace-nowrap">
+              Click a pin · scroll to zoom · drag to pan
             </div>
           )}
         </div>
 
-        {/* Count strip */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+        {/* Stats strip */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
           {[
             { value: "4", label: "Home bases", sub: "Mumbai · Gurugram · Berlin · Dubai" },
             { value: "15+", label: "Countries", sub: "Across 4 continents" },
-            { value: "3", label: "Engagement types", sub: "Operator · Consultant · Banker" },
+            { value: "3", label: "Engagement modes", sub: "Operator · Consultant · Banker" },
             { value: "4", label: "Verticals", sub: "Food · Retail · Automotive · Finance" },
           ].map((s) => (
-            <div
-              key={s.label}
-              className="bg-white rounded-xl border border-black/[0.07] p-4 shadow-sm"
-            >
+            <div key={s.label} className="bg-white rounded-xl border border-black/[0.07] p-4 shadow-sm">
               <p className="text-2xl font-bold text-[#111]">{s.value}</p>
-              <p className="text-sm font-semibold text-black/60 mt-0.5">{s.label}</p>
+              <p className="text-sm font-bold text-black/60 mt-0.5">{s.label}</p>
               <p className="text-xs text-black/30 mt-1">{s.sub}</p>
             </div>
           ))}
