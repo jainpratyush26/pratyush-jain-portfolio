@@ -29,11 +29,11 @@ const services = [
     title: "Market Expansion",
     icon: "🌐",
     description:
-      "End-to-end support for companies expanding into new geographies — particularly across the Middle East, South Asia and Southeast Asia.",
+      "End-to-end support for companies expanding into new geographies — with hands-on experience across the Middle East, India, LATAM, EU and Southeast Asia.",
     bullets: [
       "Country/market selection",
       "Regulatory & operational setup",
-      "Local partnerships",
+      "Local partnerships & network",
       "Localisation strategy",
     ],
     accent: "sky",

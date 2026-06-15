@@ -48,6 +48,12 @@ const domains = [
     icon: "⊕",
     bg: "bg-emerald-600",
   },
+  {
+    name: "International Expansion",
+    desc: "Scaling across LATAM, APAC, EU and MENA — including market entry playbooks, local network building and cross-border operational setup.",
+    icon: "🌐",
+    bg: "bg-sky-600",
+  },
 ];
 
 export default function Expertise() {
@@ -80,7 +86,7 @@ export default function Expertise() {
             <p className="text-indigo-600 text-xs font-bold tracking-widest uppercase mb-3">Domains</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[#111]">Domain Expertise</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {domains.map((d) => (
               <div
                 key={d.name}

@@ -269,13 +269,6 @@ export default function LetsTalk() {
           </div>
         </div>
 
-        {/* Divider note */}
-        <p className="text-center text-xs text-black/25 mt-8">
-          Prefer email? Write to{" "}
-          <a href="mailto:jain.pratyush26@gmail.com" className="text-black/40 hover:text-black/70 underline underline-offset-2 transition-colors">
-            jain.pratyush26@gmail.com
-          </a>
-        </p>
       </div>
     </section>
   );
