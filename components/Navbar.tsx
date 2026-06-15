@@ -3,13 +3,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const links = [
-  { href: "#about", label: "About" },
+  { href: "#about",      label: "About" },
   { href: "#experience", label: "Experience" },
-  { href: "#map", label: "World Map" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#services", label: "Services" },
-  { href: "#blog", label: "Writing" },
-  { href: "#contact", label: "Contact" },
+  { href: "#expertise",  label: "Expertise" },
+  { href: "#services",   label: "Services" },
+  { href: "#writing",    label: "Writing" },
+  { href: "#letstalk",   label: "Let's Talk" },
 ];
 
 export default function Navbar() {
@@ -47,10 +46,10 @@ export default function Navbar() {
             </a>
           ))}
           <a
-            href="#contact"
+            href="#letstalk"
             className="text-sm px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white transition-colors duration-200 font-medium shadow-sm"
           >
-            Let&apos;s talk
+            Get in touch
           </a>
         </nav>
 
