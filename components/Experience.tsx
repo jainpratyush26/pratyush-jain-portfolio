@@ -4,7 +4,7 @@ const jobs = [
   {
     role: "Head of Growth & P&L",
     company: "noon Food",
-    period: "2023 — Present",
+    period: "2024 — Present",
     location: "Dubai, UAE",
     bullets: [
       "Leading growth and P&L initiatives for UAE's food delivery platform.",
@@ -15,9 +15,9 @@ const jobs = [
   },
   {
     role: "Regional Growth & Marketplace Lead",
-    company: "Talabat (Delivery Hero)",
-    period: "2019 — 2023",
-    location: "Dubai, UAE / Berlin, Germany",
+    company: "Delivery Hero",
+    period: "2021 — 2024",
+    location: "Berlin, Germany / Dubai, UAE",
     bullets: [
       "Built Talabat Express — a rider-on-demand and dark store as a service model scaled across MENA.",
       "Led grocery, health and beauty category growth for Talabat Shops across UAE, Kuwait, Bahrain and Egypt.",
@@ -28,7 +28,7 @@ const jobs = [
   {
     role: "Strategy Consultant",
     company: "Kearney",
-    period: "2016 — 2019",
+    period: "2018 — 2021",
     location: "Gurugram, India",
     bullets: [
       "Led cost optimisation for a major Malaysian telecom player and production cost reduction for a South Korean auto OEM.",
@@ -40,11 +40,11 @@ const jobs = [
   {
     role: "Analyst — Investment Banking",
     company: "Morgan Stanley",
-    period: "2014 — 2016",
+    period: "2017",
     location: "Mumbai, India",
     bullets: [
-      "Executed M&A and capital markets transactions across Indian financial services and consumer sectors.",
-      "Built financial models and strategic rationale for cross-border deal mandates.",
+      "Worked on draft prospectuses and investment proposals across retail, logistics and technology sectors.",
+      "Built financial models to support capital markets transactions and deal mandates.",
     ],
     tag: "Finance",
   },
