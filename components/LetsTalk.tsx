@@ -27,6 +27,18 @@ const USE_CASES = [
     icon: "◎",
   },
   {
+    id: "latam",
+    label: "Expanding into LATAM, APAC or EU",
+    sublabel: "Market entry, playbooks and local networks",
+    icon: "🌏",
+  },
+  {
+    id: "coffee",
+    label: "Coffee Chat & Brainstorm",
+    sublabel: "Just want to think something through together",
+    icon: "☕",
+  },
+  {
     id: "other",
     label: "Something Else",
     sublabel: "Tell me more in your message",
