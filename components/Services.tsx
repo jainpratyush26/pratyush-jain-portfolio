@@ -128,7 +128,7 @@ export default function Services() {
             Let&apos;s have a 30-min exploratory call — no commitment required.
           </p>
           <a
-            href="#contact"
+            href="#letstalk"
             className="inline-block px-7 py-3 rounded-full bg-white text-indigo-700 text-sm font-bold hover:bg-indigo-50 transition-colors duration-200 shadow-sm"
           >
             Book a free call
